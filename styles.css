@@ -10,7 +10,10 @@ h3 { font-size: 1rem; margin: 0 0 .5rem; }
 p { margin: 0 0 1rem; }
 .eyebrow { color: #006341; text-transform: uppercase; letter-spacing: .12em; font-weight: bold; font-size: .875rem; margin-bottom: .5rem; }
 .intro { margin-bottom: 2rem; }
+
+/* This creates the two-column layout */
 .layout { display: grid; grid-template-columns: 1.15fr 1fr; gap: 1.5rem; align-items: start; }
+
 .forge { --status-bg: #e4eaf1; --status-ink: #263b50; border: 2px solid #006341; background: white; border-radius: 1.25rem; overflow: hidden; }
 .forge-top { padding: 2rem; background: var(--status-bg); color: var(--status-ink); border-bottom: 1px solid #bdc9c2; }
 .forge-top .eyebrow { color: inherit; }
@@ -21,8 +24,11 @@ p { margin: 0 0 1rem; }
 .unit { font-size: 1rem; font-weight: normal; }
 .message-box { margin: 0 2rem 2rem; padding-top: 1.5rem; border-top: 1px solid #bdc9c2; }
 .message-box p { margin: 0; min-height: 3.2em; }
+
+/* This lays out the right-side panels */
 aside { display: grid; gap: 1.5rem; }
 .panel { padding: 1.5rem; background: white; border: 1px solid #bdc9c2; border-radius: 1rem; }
+
 dl { margin: 0; }
 dt { margin-top: 1rem; }
 dd { margin-left: 0; margin-top: .25rem; }
@@ -32,10 +38,90 @@ code { background: #e9f2ec; color: #004b31; padding: .2rem .4rem; border-radius:
 .rules li { display: flex; gap: 1rem; padding: .5rem 0; }
 .rules strong { min-width: 4rem; }
 footer { margin-top: 2rem; font-size: .9rem; color: #455449; }
+
 /* Match these class names in updateForge(). Remove the old class first. */
 .is-cold { --status-bg: #e4eaf1; --status-ink: #263b50; }
 .is-ready { --status-bg: #d8eee1; --status-ink: #004b31; }
 .is-roaring { --status-bg: #ffe3b5; --status-ink: #703400; }
-@media (max-width: 700px) { .layout { grid-template-columns: 1fr; } main { padding-top: 1.5rem; } .forge-top, .readings { padding: 1.5rem; } .message-box { margin-inline: 1.5rem; } }
 
 #forge-image { display: block; width: 100%; height: auto; max-height: 240px; object-fit: contain; margin: -1rem auto 1rem; }
+
+/* ========================================== */
+/* NEW: Assignment 3 Interactive Controls CSS */
+/* ========================================== */
+
+.controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.control-group label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #bdc9c2;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.input-row input:focus {
+  outline: 2px solid #006341;
+  border-color: transparent;
+}
+
+.controls-panel button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s;
+}
+
+.controls-panel button:hover {
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background-color: #006341;
+  color: white;
+  width: 100%;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #006341;
+  border: 1px solid #006341 !important;
+  width: 100%;
+}
+
+.control-group .note {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* Responsive fix for small screens */
+@media (max-width: 700px) { 
+  .layout { grid-template-columns: 1fr; } 
+  main { padding-top: 1.5rem; } 
+  .forge-top, .readings { padding: 1.5rem; } 
+  .message-box { margin-inline: 1.5rem; } 
+}

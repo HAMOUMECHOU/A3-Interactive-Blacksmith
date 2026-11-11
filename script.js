@@ -1,11 +1,14 @@
-// Assignment 1: Blacksmith — The Tiny Forge
+// Assignment 3: Interactive Blacksmith
 
-// PLAN: Write a short pseudocode plan for making a sword here.
-// To make a sword:
-// 1. Check if the forge has at least 30 heat.
-// 2. If yes, subtract 30 from the heat and add 1 to the sword count.
-// 3. If no, leave the numbers unchanged and show a message explaining more heat is needed.
-// 4. Always update the page display at the end.
+// PLAN for interactive controls:
+// 1. Select the input field and the three buttons.
+// 2. When "Add heat" is clicked:
+//    - Read the input value.
+//    - Validate: must be a positive whole number.
+//    - If invalid, show error message on page.
+//    - If valid, clear error, call heatForge(amount), clear input.
+// 3. When "Make sword" is clicked, call makeSword().
+// 4. When "Reset forge" is clicked, call resetForge() and clear input/message.
 
 // 1. Select the forge, heat, sword count, status, image, and message elements.
 const forge = document.getElementById('forge');
@@ -31,8 +34,6 @@ function getForgeStatus(heatValue) {
 }
 
 // 4. Write updateForge(). Update text and apply one status class.
-//    Change the supplied forge image src and alt to match the heat.
-//    Keep the most recent action message visible.
 function updateForge() {
   // Update text content
   heatValue.textContent = heat;
@@ -65,7 +66,16 @@ function updateForge() {
 function resetForge() {
   heat = 20;
   swordsMade = 0;
-  actionMessage.textContent = 'Welcome to the forge. Add heat to begin.';
+  
+  // Clear the message area (Assignment 3 requirement)
+  actionMessage.textContent = '';
+  
+  // Clear the input field if it exists
+  const inputField = document.getElementById('heat-input');
+  if (inputField) {
+    inputField.value = '';
+  }
+  
   updateForge();
 }
 
@@ -91,5 +101,43 @@ function makeSword() {
   updateForge();
 }
 
-// 8. Call resetForge() once to start the game.
+// ==========================================
+// ASSIGNMENT 3: EVENT LISTENERS & VALIDATION
+// ==========================================
+
+// Select the new interactive elements
+const heatInput = document.getElementById('heat-input');
+const addHeatBtn = document.getElementById('add-heat-btn');
+const makeSwordBtn = document.getElementById('make-sword-btn');
+const resetForgeBtn = document.getElementById('reset-forge-btn');
+
+// 1. Add Heat Button Logic
+addHeatBtn.addEventListener('click', function() {
+  const inputValue = heatInput.value;
+  const amount = Number(inputValue);
+
+  // Validation: Reject empty, not a number, <= 0, or decimals
+  if (inputValue === '' || isNaN(amount) || amount <= 0 || !Number.isInteger(amount)) {
+    actionMessage.textContent = 'Error: Please enter a positive whole number (e.g., 10).';
+    return; // Stop execution so heat doesn't change
+  }
+
+  // Valid input: call existing function and clear input
+  heatForge(amount);
+  heatInput.value = '';
+});
+
+// 2. Make Sword Button Logic
+makeSwordBtn.addEventListener('click', function() {
+  makeSword(); 
+});
+
+// 3. Reset Forge Button Logic
+resetForgeBtn.addEventListener('click', function() {
+  resetForge();
+  // Reset requirement says feedback area should be empty
+  actionMessage.textContent = ''; 
+});
+
+// 8. Call resetForge() once to start the game and initialize the page.
 resetForge();
